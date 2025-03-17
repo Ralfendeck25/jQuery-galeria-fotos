@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    * {
+			font-family: 'Roboto', sans-serif;
+      margin: 0;
+			padding: 0;
+      box-sizing: border-box;
+    }
+
+			header {
+				display: flex;
+        border-bottom: 16px solid #341f97;
+				justify-content: center;
+        text-transform: uppercase;
+				padding: 16px 0;
+        font-style: italic;
+				background-color: #5f27cd;
+				color: #fff;
+			}
+
+			header button {
+				margin-left: 16px;
+			}
+
+			form {
+        background-color: #c8d6e5;
+				text-align: center;
+				padding: 24px 0;
+				display: none;
+			}
+
+			form h2 {
+				margin-bottom: 16px;
+			}
+
+			input,
+			button {
+				padding: 8px;
+			}
+
+			button {
+				background-color: #009432;
+				border: none;
+				cursor: pointer;
+				font-weight: bold;
+				text-transform: uppercase;
+				color: #fff;
+			}
+
+			#botao-cancelar {
+				background-color: red;
+			}
+
+			ul {
+        list-style: none;
+				display: flex;
+        flex-wrap: wrap;
+			}
+
+      ul li {
+				max-width: 25%;
+				list-style: none;
+				position: relative;
+				max-height: 280px;
+				overflow-y: hidden;
+      }
+
+			ul li img {
+				width: 100%;
+			}
+
+			.overlay-imagem-link {
+				padding: 16px;
+				background-color: rgba(0, 0, 0, 0.7);
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				opacity: 0;
+				transition: all ease 0.5s;
+			}
+
+			.overlay-imagem-link a {
+				color: #fff;
+				text-decoration: none;
+			}
+
+			ul li:hover .overlay-imagem-link {
+				opacity: 1;
+			}
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Galeria de Fotos</h1>
+    <button type="button">Nova imagem +</button>
+  </header>
+  <form action="">
+			<input type="url" id="endereço-imagem-nova" required placeholder="url da imagem" />
+			<button type="submit">Adicionar</button>
+			<button type="reset" id="botao-cancelar">Cancel</button>
+  </form>
+  <ul>
+    <li>
+      <img
+        src="./estrutura_inicial/images/foto2.jpg"
+					alt="Pintura de um flamengo"
+      />
+      <div class="overlay-imagem-link">
+        <a href="./estrutura_inicial/images/foto2.jpg" target="_blank">Ver imagem em tamanho real</a>
+      </div>
+  </li>
+  <li>
+    <img
+      src="./estrutura_inicial/images/foto3.jpg"
+					alt="Pintura de filhotes de cachorro"
+    />
+    <div class="overlay-imagem-link">
+      <a href="./estrutura_inicial/images/foto3.jpg" target="_blank">Ver imagem em tamanho real</a>
+    </div>
+</li>
+<li>
+  <img
+    src="./estrutura_inicial/images/foto4.jpg"
+    alt="Pintura de uma flor"
+  />
+  <div class="overlay-imagem-link">
+    <a href="./estrutura_inicial/images/foto4.jpg" target="_blank">Ver imagem em tamanho real</a>
+  </div>
+</li>
+<li>
+  <img
+    src="./estrutura_inicial/images/foto5.jpg"
+        alt="Pintura de uma alg"
+  />
+  <div class="overlay-imagem-link">
+    <a href="./estrutura_inicial/images/foto5.jpg" target="_blank">Ver imagem em tamanho real</a>
+  </div>
+</li>
+  </ul>
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<script src="main.js"></script>
+    <script>
+      $(document).ready(function () {
+			         $('header button').click(function () {
+			             $('form').slideDown();
+			     })
+
+			        $('#botao-cancelar').click(function () {
+			         $('form').slideUp();
+			     })
+
+           $('form').on('submit', function(e) {
+			          e.preventDefault();
+                const enderecoDaNovaImagem = $('#endereço-imagem-nova').val();
+					const novoItem = $('<li style="display: none"></li>');
+					$(`<img src="${enderecoDaNovaImagem}" />`).appendTo(novoItem);
+					$(`
+          <div class="overlay-imagem-link">
+            <a href="${enderecoDaNovaImagem}" target="_blank" title="Ver imagem em tamanho real">
+              Ver imagem em tamanho real
+            </a>
+          </div>
+          `).appendTo(novoItem);
+					$(novoItem).appendTo('ul');
+					$(novoItem).fadeIn(5000);
+			     $('#endereço-imagem-nova').val('');
+           })
+			  })
+    </script>
+</body>
+</html>
